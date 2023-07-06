@@ -1,20 +1,33 @@
-import { ZipOptions, zipSync } from "fflate";
+import { zipSync } from 'fflate'
 
 export const createZipArchive = async (
-  file: File
+  files: File[],
+  callback: (result: Uint8Array | null) => void
 ): Promise<Uint8Array | null> => {
   try {
-    // Create a buffer from the base64-encoded file content
-    const buffer = await file.arrayBuffer();
-    console.log("bf", buffer);
-    // Compress the buffer using zipSync
-    const zip = zipSync({ [file.name]: new Uint8Array(buffer) }, {
-      gzip: false,
-    } as ZipOptions);
-    console.log(zip);
-    return zip;
+    const zipData: Record<string, Uint8Array> = {}
+    console.log('start')
+    for (const file of files) {
+      const blob = new Blob([file])
+
+      // Create an ArrayBuffer from the Blob
+      const arrayBuffer = await blob.arrayBuffer()
+      const fileData = new Uint8Array(arrayBuffer)
+
+      // Add the file to the zipData object
+      zipData[file.name] = fileData
+    }
+    console.log('before zipping')
+    const zip = zipSync(zipData, { level: 6 })
+    console.log('after zipping')
+    callback(zip)
+    return zip
   } catch (error) {
-    console.error("Error creating ZIP archive:", error);
-    return null;
+    if (error instanceof Error) {
+      console.error('Error creating ZIP archive:', error.message)
+    } else {
+      console.error('Error creating ZIP archive:', JSON.stringify(error))
+    }
+    return null
   }
-};
+}
