@@ -5,6 +5,7 @@ import { appendFiles } from '../lib/files'
 import { mergeClasses } from '../lib/twUtils'
 import { DragDropFile } from './DragDropFile'
 import { FilesList } from './FilesList'
+import { CompressionLevelSelector } from './CompressionLevelSelector'
 
 export const FileUploader = () => {
   const [files, setFiles] = useState<File[] | null>(null)
@@ -54,6 +55,10 @@ export const FileUploader = () => {
       <div className="flex justify-between w-full gap-6 flex-col md:flex-row">
         <FilesList files={files} />
         <div className="flex flex-col gap-4">
+          <CompressionLevelSelector
+            compressionLevel={compressionLevel}
+            setCompressionLevel={setCompressionLevel}
+          />
           <button
             onClick={downloadZipFile}
             disabled={!files}
