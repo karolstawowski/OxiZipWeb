@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "fflate": "^0.8.0",
-    "preact": "^10.13.2",
-    "react-drag-drop-files": "^2.3.10"
+    "preact": "^10.13.2"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
