@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useState } from 'preact/hooks'
-import { createZipArchive } from '../lib/compress'
+import { CompressionLevel, createZipArchive } from '../lib/zip'
 import { appendFiles } from '../lib/files'
 import { mergeClasses } from '../lib/twUtils'
 import { DragDropFile } from './DragDropFile'
@@ -9,20 +9,25 @@ import { FilesList } from './FilesList'
 export const FileUploader = () => {
   const [files, setFiles] = useState<File[] | null>(null)
   const [zipData, setZipData] = useState<Uint8Array | null>(null)
+  const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>(6)
   const [isCompressing, setIsCompressing] = useState<boolean>(false)
 
   const downloadZipFile = async () => {
     if (files) {
       setIsCompressing(true)
-      const archive = await createZipArchive(files, (zipData) => {
-        console.log('callback start')
-        if (zipData) {
-          setIsCompressing(false)
-        } else {
-          setIsCompressing(false)
-          console.error('Failed work')
+      const archive = await createZipArchive(
+        files,
+        compressionLevel,
+        (zipData) => {
+          console.log('callback start')
+          if (zipData) {
+            setIsCompressing(false)
+          } else {
+            setIsCompressing(false)
+            console.error('Failed work')
+          }
         }
-      })
+      )
       if (!archive) return null
       setZipData(archive)
       const blob = new Blob([archive], { type: 'application/zip' })
@@ -45,9 +50,10 @@ export const FileUploader = () => {
 
   return (
     <div className="flex flex-col items-center py-4 gap-6 w-96 sm:w-[540px] md:w-[720px] lg:w-[860px] xl:w-[940px] 2xl:w-[1140px]">
-      <div className="flex justify-between w-full gap-6">
+      <DragDropFile handleFiles={handleFilesAppend} />
+      <div className="flex justify-between w-full gap-6 flex-col md:flex-row">
         <FilesList files={files} />
-        <div>
+        <div className="flex flex-col gap-4">
           <button
             onClick={downloadZipFile}
             disabled={!files}
@@ -62,7 +68,6 @@ export const FileUploader = () => {
           </button>
         </div>
       </div>
-      <DragDropFile handleFiles={handleFilesAppend} />
     </div>
   )
 }

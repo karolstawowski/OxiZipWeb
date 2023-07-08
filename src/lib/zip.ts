@@ -2,6 +2,7 @@ import { zipSync } from 'fflate'
 
 export const createZipArchive = async (
   files: File[],
+  compressionLevel: CompressionLevel,
   callback: (result: Uint8Array | null) => void
 ): Promise<Uint8Array | null> => {
   try {
@@ -14,7 +15,7 @@ export const createZipArchive = async (
 
       zipData[file.name] = fileData
     }
-    const zip = zipSync(zipData, { level: 6 })
+    const zip = zipSync(zipData, { level: compressionLevel })
     callback(zip)
     return zip
   } catch (error) {
@@ -28,3 +29,5 @@ export const createZipArchive = async (
     return null
   }
 }
+
+export type CompressionLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | undefined

@@ -23,7 +23,7 @@ export const FilesList = ({ files }: FilesListProps) => {
           </span>
           <div>
             <p className="text-slate-900 font-medium">No files selected</p>
-            <p className="text-slate-700">Drop files above</p>
+            <p className="text-slate-700 text-sm">Drop files above</p>
           </div>
         </div>
       )}
