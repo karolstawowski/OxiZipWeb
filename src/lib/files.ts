@@ -17,3 +17,11 @@ export const mergeFileArrays = (array1: File[], array2: File[]): File[] => {
     ).values()
   )
 }
+
+export const createArchiveName = (str: string): string => {
+  return appendSuffix(str, '.zip').replace(/[/\\?%* :|"<>]/g, '')
+}
+
+const appendSuffix = (str: string, suffix: string): string => {
+  return str.toLowerCase().endsWith(suffix) ? str : str.concat(suffix)
+}
