@@ -10,7 +10,6 @@ import { FilesList } from './FilesList'
 
 export const FileUploader = () => {
   const [files, setFiles] = useState<File[] | null>(null)
-  const [zipData, setZipData] = useState<Uint8Array | null>(null)
   const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>(6)
   const [archiveName, setArchiveName] = useState<string>('archive.zip')
   const [isCompressing, setIsCompressing] = useState<boolean>(false)
@@ -33,7 +32,7 @@ export const FileUploader = () => {
         }
       )
       if (!archive) return null
-      setZipData(archive)
+
       const blob = new Blob([archive], { type: 'application/zip' })
       const url = URL.createObjectURL(blob)
 
