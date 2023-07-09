@@ -4,9 +4,7 @@ import { useRef, useState } from 'preact/hooks'
 import { FileUploadIcon } from '../icons/FileUploadIcon'
 import { mergeClasses } from '../lib/twUtils'
 
-const fileTypes = ['JPG', 'PNG', 'GIF', 'TXT', 'CFG', 'MP4']
-
-export const DragDropFile = ({
+export const DragDropZone = ({
   handleFiles,
 }: {
   handleFiles: (files: File[]) => void
@@ -73,7 +71,7 @@ export const DragDropFile = ({
           <FileUploadIcon size={48} />
         </span>
         <button className="text-xl font-medium">Drop files here</button>
-        <p className="text-xs">Allowed file types: {fileTypes.join(', ')}</p>
+        <p className="text-xs">Allowed file types: all</p>
       </label>
       {dragActive && (
         <div
