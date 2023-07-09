@@ -15,7 +15,6 @@ export const FileUploader = () => {
   const [isCompressing, setIsCompressing] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
 
-  console.log(files)
   const downloadZipFile = async () => {
     setIsError(false)
     if (files) {
@@ -24,13 +23,11 @@ export const FileUploader = () => {
         files,
         compressionLevel,
         (zipData) => {
-          console.log('callback start')
           if (zipData) {
             setIsCompressing(false)
           } else {
             setIsCompressing(false)
             setIsError(true)
-            console.error('Failed work')
           }
         }
       )
