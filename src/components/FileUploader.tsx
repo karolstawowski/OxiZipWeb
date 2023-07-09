@@ -7,6 +7,7 @@ import { CompressButton } from './CompressButton'
 import { CompressionLevelSelector } from './CompressionLevelSelector'
 import { DragDropZone } from './DragDropZone'
 import { FilesList } from './FilesList'
+import { Footer } from './Footer'
 
 export const FileUploader = () => {
   const [files, setFiles] = useState<File[] | null>(null)
@@ -52,36 +53,40 @@ export const FileUploader = () => {
   }
 
   return (
-    <div className="flex flex-col items-center py-4 gap-6 w-96 sm:w-[540px] md:w-[720px] lg:w-[860px] xl:w-[940px] 2xl:w-[1140px]">
-      <DragDropZone handleFiles={handleFilesAppend} />
-      <div className="flex justify-between w-full gap-6 flex-col md:flex-row">
-        <div className="w-full gap-2 flex flex-col">
-          <ArchiveName
-            archiveName={archiveName}
-            setArchiveName={setArchiveName}
-          />
-          <FilesList
-            files={files}
-            handleFileRemoval={(fileName) =>
-              setFiles((files) =>
-                files ? files.filter((file) => file.name !== fileName) : null
-              )
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <CompressionLevelSelector
-            compressionLevel={compressionLevel}
-            setCompressionLevel={setCompressionLevel}
-          />
-          <CompressButton
-            downloadZipFile={downloadZipFile}
-            files={files}
-            isCompressing={isCompressing}
-            isError={isError}
-          />
+    <div className="min-h-[calc(100vh-48px)] w-full flex flex-col items-center">
+      <div className="flex flex-col items-center py-4 gap-6 w-96 sm:w-[540px] md:w-[720px] lg:w-[860px] xl:w-[940px] 2xl:w-[1140px]">
+        <DragDropZone handleFiles={handleFilesAppend} />
+        <div className="flex justify-between w-full gap-6 flex-col md:flex-row">
+          <div className="w-full gap-2 flex flex-col">
+            <ArchiveName
+              archiveName={archiveName}
+              setArchiveName={setArchiveName}
+            />
+            <FilesList
+              files={files}
+              handleFileRemoval={(fileName) =>
+                setFiles((files) =>
+                  files ? files.filter((file) => file.name !== fileName) : null
+                )
+              }
+            />
+          </div>
+          <div className="flex flex-col gap-4">
+            <CompressionLevelSelector
+              compressionLevel={compressionLevel}
+              setCompressionLevel={setCompressionLevel}
+            />
+            <CompressButton
+              downloadZipFile={downloadZipFile}
+              files={files}
+              isCompressing={isCompressing}
+              isError={isError}
+            />
+          </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
