@@ -9,8 +9,8 @@ OxiZipWeb is a file archiver web application. Program allows you to create ZIP a
 
 ## Tools and technologies
 
-- Preact
+- <a href="https://preactjs.com/" target="_blank">Preact</a>
 - TypeScript
-- <a href="https://www.npmjs.com/package/fflate">Fflate</a>
+- <a href="https://www.npmjs.com/package/fflate" target="_blank">fflate</a>
 - Tailwind
 - Vite
