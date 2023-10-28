@@ -1,4 +1,9 @@
-import { zipSync, AsyncCompress, AsyncDeflateOptions } from 'fflate'
+import {
+  zipSync,
+  AsyncCompress,
+  AsyncDeflateOptions,
+  AsyncDeflate,
+} from 'fflate'
 
 export const createZipArchive = async (
   files: File[],
