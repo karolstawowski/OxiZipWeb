@@ -13,6 +13,11 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
+      - name: Format and lint
+        run: |
+          yarn format
+          yarn lint
+
       - name: Install and Build 🔧
         run: |
           yarn 
